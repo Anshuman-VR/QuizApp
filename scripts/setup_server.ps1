@@ -59,18 +59,18 @@ Write-Host "[OK] JWT secret generated." -ForegroundColor Green
 Write-Host ""
 Write-Host "[INFO] Creating .env file..." -ForegroundColor Cyan
 
-$envContent = @"
-# Secrets - DO NOT COMMIT
-DATABASE_URL=postgresql+asyncpg://postgres:$pgPassword@localhost:5432/quizapp
-JWT_SECRET=$jwtSecret
-JWT_EXPIRE_MINUTES=100
-ADMIN_SECRET=$adminSecret
-PORT=3000
-QUIZ_ID=1
-TUNNEL_DOMAIN=$tunnelDomain
-EASTER_EGG_SECRET=ACE{y0u_f0und_1t}
-EASTER_EGG_FLAG=ACE{c4mpu5_3y35_4r3_4lw4y5_w4tch1ng}
-"@
+$envContent = (
+    "# Secrets - DO NOT COMMIT",
+    "DATABASE_URL=postgresql+asyncpg://postgres:$pgPassword@localhost:5432/quizapp",
+    "JWT_SECRET=$jwtSecret",
+    "JWT_EXPIRE_MINUTES=100",
+    "ADMIN_SECRET=$adminSecret",
+    "PORT=3000",
+    "QUIZ_ID=1",
+    "TUNNEL_DOMAIN=$tunnelDomain",
+    "EASTER_EGG_SECRET=ACE{y0u_f0und_1t}",
+    "EASTER_EGG_FLAG=ACE{c4mpu5_3y35_4r3_4lw4y5_w4tch1ng}"
+) -join "`r`n"
 
 $envContent | Out-File -FilePath ".env" -Encoding utf8 -NoNewline
 Write-Host "[OK] .env created." -ForegroundColor Green
@@ -92,47 +92,43 @@ $env:PGPASSWORD = $pgPassword
 Write-Host "[OK] Database 'quizapp' ready." -ForegroundColor Green
 
 # Create schema
-$schema = @"
-CREATE TABLE IF NOT EXISTS students (
-    reg_no  VARCHAR(9) PRIMARY KEY,
-    name    VARCHAR(100) NOT NULL,
-    year    INTEGER,
-    branch  VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS quiz (
-    quiz_id    INTEGER PRIMARY KEY,
-    name       VARCHAR(50) NOT NULL,
-    time_limit INTEGER NOT NULL DEFAULT 60,
-    isactive   BOOLEAN NOT NULL DEFAULT FALSE
-);
-
-CREATE TABLE IF NOT EXISTS options (
-    quiz_id       INTEGER REFERENCES quiz(quiz_id),
-    question_no   INTEGER,
-    correctanswer VARCHAR(1) NOT NULL,
-    PRIMARY KEY (quiz_id, question_no)
-);
-
-CREATE TABLE IF NOT EXISTS session (
-    reg_no        VARCHAR(9) REFERENCES students(reg_no),
-    quiz_id       INTEGER REFERENCES quiz(quiz_id),
-    session_token VARCHAR(64) UNIQUE,
-    start_time    TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    finish_time   TIMESTAMPTZ,
-    hassubmitted  BOOLEAN DEFAULT FALSE,
-    score         INTEGER,
-    PRIMARY KEY (reg_no, quiz_id)
-);
-
-CREATE TABLE IF NOT EXISTS studentanswers (
-    reg_no      VARCHAR(9),
-    quiz_id     INTEGER,
-    question_no INTEGER,
-    option      VARCHAR(1) NOT NULL,
-    PRIMARY KEY (reg_no, quiz_id, question_no)
-);
-"@
+$schema = (
+    "CREATE TABLE IF NOT EXISTS students (",
+    "    reg_no  VARCHAR(9) PRIMARY KEY,",
+    "    name    VARCHAR(100) NOT NULL,",
+    "    year    INTEGER,",
+    "    branch  VARCHAR(100) NOT NULL",
+    ");",
+    "CREATE TABLE IF NOT EXISTS quiz (",
+    "    quiz_id    INTEGER PRIMARY KEY,",
+    "    name       VARCHAR(50) NOT NULL,",
+    "    time_limit INTEGER NOT NULL DEFAULT 60,",
+    "    isactive   BOOLEAN NOT NULL DEFAULT FALSE",
+    ");",
+    "CREATE TABLE IF NOT EXISTS options (",
+    "    quiz_id       INTEGER REFERENCES quiz(quiz_id),",
+    "    question_no   INTEGER,",
+    "    correctanswer VARCHAR(1) NOT NULL,",
+    "    PRIMARY KEY (quiz_id, question_no)",
+    ");",
+    "CREATE TABLE IF NOT EXISTS session (",
+    "    reg_no        VARCHAR(9) REFERENCES students(reg_no),",
+    "    quiz_id       INTEGER REFERENCES quiz(quiz_id),",
+    "    session_token VARCHAR(64) UNIQUE,",
+    "    start_time    TIMESTAMPTZ NOT NULL DEFAULT NOW(),",
+    "    finish_time   TIMESTAMPTZ,",
+    "    hassubmitted  BOOLEAN DEFAULT FALSE,",
+    "    score         INTEGER,",
+    "    PRIMARY KEY (reg_no, quiz_id)",
+    ");",
+    "CREATE TABLE IF NOT EXISTS studentanswers (",
+    "    reg_no      VARCHAR(9),",
+    "    quiz_id     INTEGER,",
+    "    question_no INTEGER,",
+    "    option      VARCHAR(1) NOT NULL,",
+    "    PRIMARY KEY (reg_no, quiz_id, question_no)",
+    ");"
+) -join "`r`n"
 
 $schema | & psql -U postgres -h localhost -d quizapp
 Write-Host "[OK] Schema created." -ForegroundColor Green
