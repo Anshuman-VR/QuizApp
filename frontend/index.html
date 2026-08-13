@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACE Cybersecurity | Recruitment 2026</title>
+  <meta name="description" content="ACE Cybersecurity Club Recruitment Quiz 2026">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Easter egg hint: aGludDogL2FwaS9yZWNvbg== -->
+  <div class="login-page">
+    <div class="login-card">
+      <div class="login-header">
+        <img src="/aceCyberLogo.png" alt="ACE" class="login-logo">
+        <div class="login-title">
+          <h1>ACE Cybersecurity</h1>
+          <p>Recruitments 2026</p>
+        </div>
+      </div>
+
+      <div class="login-body">
+        <div id="alert" class="alert-box hidden"></div>
+
+        <form id="login-form" autocomplete="off">
+          <div class="form-group">
+            <label for="reg_no">REGISTRATION NO.</label>
+            <input type="text" id="reg_no" name="reg_no"
+              placeholder="e.g. 128158003" maxlength="9" autocomplete="off" required>
+            <div id="reg-hint" class="error-msg"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="name">FULL NAME</label>
+            <input type="text" id="name" name="name" placeholder="Your full name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="year">YEAR OF STUDY</label>
+            <select id="year" name="year" required>
+              <option value="1">1st Year</option>
+              <option value="2">2nd Year</option>
+              <option value="3">3rd Year</option>
+              <option value="4">4th Year</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="branch">BRANCH</label>
+            <select id="branch" name="branch" required>
+              <option value="CSE(Core)">CSE (Core)</option>
+              <option value="CSE(AIDS)">CSE (AIDS)</option>
+              <option value="CSE(Cybersecurity)">CSE (Cybersecurity)</option>
+              <option value="CSE(IOTA)">CSE (IOTA)</option>
+              <option value="CSE(Networks)">CSE (Networks)</option>
+              <option value="IT">IT</option>
+              <option value="ICT">ICT</option>
+              <option value="Others">Others (specify below)</option>
+            </select>
+          </div>
+
+          <div class="form-group hidden" id="other-group">
+            <label for="branch-other">SPECIFY BRANCH</label>
+            <input type="text" id="branch-other" placeholder="Your branch">
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="submit-btn">
+            INITIALIZE SESSION
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Easter egg console hint
+    console.log('%c👁 Stop snooping... or don\'t.', 'color:#F5FF00;font-size:14px;font-family:monospace');
+    console.log('The hint is in the source. The endpoint awaits a POST.');
+  </script>
+  <script src="/js/login.js"></script>
+</body>
+</html>

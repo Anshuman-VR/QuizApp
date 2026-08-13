@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACE Quiz | Active Session</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body style="display:flex;flex-direction:column;height:100vh;overflow:hidden;">
+
+  <!-- ── HEADER ─────────────────────────────────────────────── -->
+  <header class="quiz-header">
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <img src="/aceCyberLogo.png" alt="ACE" class="quiz-logo">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:var(--primary);letter-spacing:0.1em;">ACE Cybersecurity Recruitments 2026</div>
+        <div id="q-counter" style="font-family:'IBM Plex Mono',monospace;font-size:0.8rem;color:var(--dim);">Q —/60</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:1.5rem;">
+      <span id="save-status" class="save-status"></span>
+      <div id="timer" class="timer-display">--:--</div>
+    </div>
+  </header>
+
+  <!-- ── BODY ──────────────────────────────────────────────── -->
+  <div class="quiz-body" style="flex:1;overflow:hidden;">
+
+    <!-- Sidebar navigator -->
+    <aside class="sidebar">
+      <div>
+        <div class="sidebar-label">QUESTION MAP</div>
+        <div class="nav-legend" style="margin-bottom:0.75rem;">
+          <span><i class="dot dot-current"></i> Current</span>
+          <span><i class="dot dot-answered"></i> Answered</span>
+          <span><i class="dot dot-unanswered"></i> Pending</span>
+        </div>
+        <div class="nav-grid" id="nav-grid"></div>
+      </div>
+
+      <div style="margin-top:auto;border-top:2px solid #222;padding-top:1rem;">
+        <button id="submit-btn" class="btn btn-success">SUBMIT QUIZ</button>
+      </div>
+    </aside>
+
+    <!-- Question panel -->
+    <main class="question-area">
+      <div id="loading" class="loading-overlay">
+        <span class="loading-text">LOADING</span>
+      </div>
+
+      <div id="q-panel" class="hidden" style="flex:1;display:flex;flex-direction:column;">
+        <div id="q-number" class="q-number"></div>
+        <div id="q-text" class="q-text"></div>
+        <div id="options" class="options-list"></div>
+        <div class="controls">
+          <button class="btn" id="prev-btn">&larr; PREV</button>
+          <button class="btn" id="next-btn">NEXT &rarr;</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Submit modal -->
+  <div id="submit-modal" class="modal-overlay">
+    <div class="modal-box">
+      <h2>CONFIRM SUBMIT?</h2>
+      <p>This action is <strong>irreversible</strong>. You cannot resume the quiz after submitting.</p>
+      <div class="modal-actions">
+        <button class="btn" id="modal-cancel">CANCEL</button>
+        <button class="btn btn-danger" id="modal-confirm">SUBMIT FINAL</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/quiz.js"></script>
+</body>
+</html>

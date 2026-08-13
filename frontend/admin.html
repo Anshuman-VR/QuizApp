@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACE Quiz | Admin</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Login view -->
+  <div id="login-view" class="login-page">
+    <div class="login-card">
+      <div class="login-header">
+        <img src="/aceCyberLogo.png" alt="ACE" class="login-logo">
+        <div class="login-title">
+          <h1>ADMIN</h1>
+          <p>RESTRICTED ACCESS</p>
+        </div>
+      </div>
+      <div class="login-body">
+        <div id="admin-alert" class="alert-box hidden"></div>
+        <div class="form-group">
+          <label for="admin-secret">ADMIN SECRET</label>
+          <input type="password" id="admin-secret" autocomplete="off" placeholder="Enter secret">
+        </div>
+        <button class="btn btn-primary" id="admin-login-btn">AUTHENTICATE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard view -->
+  <div id="dash-view" class="hidden">
+    <header class="quiz-header">
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <img src="/aceCyberLogo.png" alt="ACE" class="quiz-logo">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.9rem;color:var(--primary);">Admin Dashboard</div>
+      </div>
+      <div style="display:flex;gap:0.75rem;">
+        <button class="btn btn-sm" id="refresh-btn">↻ REFRESH</button>
+        <button class="btn btn-sm btn-success" id="export-btn">↓ EXPORT CSV</button>
+      </div>
+    </header>
+
+    <div class="admin-page">
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">Registered</div><div class="stat-value" id="s-reg">—</div></div>
+        <div class="stat-card"><div class="stat-label">Submitted</div><div class="stat-value" id="s-sub">—</div></div>
+        <div class="stat-card"><div class="stat-label">In Progress / Not Started</div><div class="stat-value" id="s-not">—</div></div>
+        <div class="stat-card"><div class="stat-label">Avg Score</div><div class="stat-value" id="s-avg">—</div></div>
+      </div>
+
+      <div class="panel" style="overflow-x:auto;padding:0;">
+        <table>
+          <thead>
+            <tr>
+              <th>REG NO</th>
+              <th>NAME</th>
+              <th>BRANCH</th>
+              <th>YR</th>
+              <th>STATUS</th>
+              <th>SCORE</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody id="results-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

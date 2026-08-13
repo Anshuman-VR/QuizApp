@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+*.egg
+.venv/
+venv/
+env/
+
+# Secrets — NEVER commit these
+.env
+
+# App-generated files
+backend/easter_egg.log
+backend/questions.json
+*.log
+backups/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Large binary assets — don't bloat the repo
+*.pdf
+aceCyberLogo.png
+
+# Locust artifacts
+.locust/
+
+# VS Code
+.vscode/
