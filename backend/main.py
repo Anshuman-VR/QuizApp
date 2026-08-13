@@ -38,12 +38,6 @@ app.add_middleware(
 # ── Admin IP Restriction Middleware ───────────────────────────────────────────
 @app.middleware("http")
 async def security_middleware(request: Request, call_next):
-    # Block admin routes from non-localhost IPs
-    if request.url.path.startswith("/api/admin") or request.url.path.rstrip("/") == "/admin":
-        host = request.client.host if request.client else ""
-        if host not in ("127.0.0.1", "::1", "localhost"):
-            return JSONResponse(status_code=404, content={"detail": "Not Found"})
-
     response = await call_next(request)
 
     # Security headers
