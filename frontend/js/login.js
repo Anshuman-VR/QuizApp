@@ -3,6 +3,10 @@
 // If valid & not submitted → redirect to quiz.
 // If valid & submitted    → show "already submitted" message.
 // Otherwise              → show the login form normally.
+//
+// ── 👁 ACE{y0u_f0und_1t} ──────────────────────────────────────────────────────
+// Interesting. Now POST it to /api/recon. You'll know what to put in the body.
+// ─────────────────────────────────────────────────────────────────────────────
 
 (async () => {
   try {
