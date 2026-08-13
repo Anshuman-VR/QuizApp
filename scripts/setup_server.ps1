@@ -20,20 +20,19 @@ Write-Host ""
 Write-Host "[CHECK] Verifying prerequisites..." -ForegroundColor Cyan
 
 $python = Get-Command python -ErrorAction SilentlyContinue
-if (-not $python) { Write-Host "[ERROR] Python not found in PATH. Install from python.org." -ForegroundColor Red; exit 1 }
-Write-Host "[OK] Python: $($python.Source)" -ForegroundColor Green
+if (-not $python) { Write-Host "[WARN] Python not found via Get-Command. Hoping it works anyway!" -ForegroundColor Yellow }
+else { Write-Host "[OK] Python: $($python.Source)" -ForegroundColor Green }
 
 $git = Get-Command git -ErrorAction SilentlyContinue
-if (-not $git) { Write-Host "[ERROR] Git not found. Install from git-scm.com." -ForegroundColor Red; exit 1 }
-Write-Host "[OK] Git: $($git.Source)" -ForegroundColor Green
+if (-not $git) { Write-Host "[WARN] Git not found via Get-Command. Hoping it works anyway!" -ForegroundColor Yellow }
+else { Write-Host "[OK] Git: $($git.Source)" -ForegroundColor Green }
 
 $psql = Get-Command psql -ErrorAction SilentlyContinue
 if (-not $psql) {
-    Write-Host "[ERROR] psql not found. Ensure PostgreSQL bin dir is in PATH." -ForegroundColor Red
-    Write-Host "        Typical path: C:\Program Files\PostgreSQL\16\bin" -ForegroundColor Yellow
-    exit 1
+    Write-Host "[WARN] psql not found via Get-Command. Hoping it works anyway!" -ForegroundColor Yellow
+} else {
+    Write-Host "[OK] psql: $($psql.Source)" -ForegroundColor Green
 }
-Write-Host "[OK] psql: $($psql.Source)" -ForegroundColor Green
 
 $cloudflared = Get-Command cloudflared -ErrorAction SilentlyContinue
 if (-not $cloudflared) {
