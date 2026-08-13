@@ -78,6 +78,50 @@ async def seed(user, password, host, port, dbname, questions, answers):
         host=host, port=int(port), database=dbname
     )
     try:
+        # Create schema
+        await conn.execute("""
+            CREATE TABLE IF NOT EXISTS students (
+                reg_no  VARCHAR(9) PRIMARY KEY,
+                name    VARCHAR(100) NOT NULL,
+                year    INTEGER,
+                branch  VARCHAR(100) NOT NULL
+            );
+
+            CREATE TABLE IF NOT EXISTS quiz (
+                quiz_id    INTEGER PRIMARY KEY,
+                name       VARCHAR(50) NOT NULL,
+                time_limit INTEGER NOT NULL DEFAULT 60,
+                isactive   BOOLEAN NOT NULL DEFAULT FALSE
+            );
+
+            CREATE TABLE IF NOT EXISTS options (
+                quiz_id       INTEGER REFERENCES quiz(quiz_id),
+                question_no   INTEGER,
+                correctanswer VARCHAR(1) NOT NULL,
+                PRIMARY KEY (quiz_id, question_no)
+            );
+
+            CREATE TABLE IF NOT EXISTS session (
+                reg_no        VARCHAR(9) REFERENCES students(reg_no),
+                quiz_id       INTEGER REFERENCES quiz(quiz_id),
+                session_token VARCHAR(64) UNIQUE,
+                start_time    TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+                finish_time   TIMESTAMPTZ,
+                hassubmitted  BOOLEAN DEFAULT FALSE,
+                score         INTEGER,
+                PRIMARY KEY (reg_no, quiz_id)
+            );
+
+            CREATE TABLE IF NOT EXISTS studentanswers (
+                reg_no      VARCHAR(9),
+                quiz_id     INTEGER,
+                question_no INTEGER,
+                option      VARCHAR(1) NOT NULL,
+                PRIMARY KEY (reg_no, quiz_id, question_no)
+            );
+        """)
+        print("[OK] Database schema created successfully.")
+
         # Upsert quiz row
         await conn.execute("""
             INSERT INTO quiz (quiz_id, name, time_limit, isactive)
