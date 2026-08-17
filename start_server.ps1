@@ -1,8 +1,9 @@
 # ACE Cybersecurity Quiz - PRODUCTION Server Startup Script
 # -----------------------------------------------------------------
 # Run this on event day. Does NOT wipe the database.
-# Cloudflare Named Tunnel (run in a separate terminal AFTER this):
-#   cloudflared tunnel run ace-quiz
+# Cloudflare Quick Tunnel (run in a separate terminal AFTER this):
+#   .\cloudflared.exe tunnel --url http://localhost:3000 --protocol http2
+#   (--protocol http2 forces TCP only — required on campus networks where UDP/QUIC is blocked)
 # -----------------------------------------------------------------
 
 Write-Host ""
