@@ -10,6 +10,10 @@ Write-Host "  ACE Cybersecurity Quiz - TEST MODE  " -ForegroundColor Yellow
 Write-Host "======================================" -ForegroundColor Yellow
 Write-Host ""
 
+# Disable QuickEdit mode in Windows registry so console clicks never freeze output
+Set-ItemProperty -Path "HKCU:\Console" -Name "QuickEdit" -Value 0 -ErrorAction SilentlyContinue
+Set-ItemProperty -Path "HKCU:\Console" -Name "InsertMode" -Value 0 -ErrorAction SilentlyContinue
+
 # 1. Check PostgreSQL service is running
 $pgService = Get-Service -Name "postgresql*" -ErrorAction SilentlyContinue | Where-Object { $_.Status -eq "Running" }
 if (-not $pgService) {

@@ -12,8 +12,27 @@ from backend.config import settings
 from contextlib import asynccontextmanager
 import os
 
+import sys
+
+def disable_windows_quickedit():
+    if sys.platform == "win32":
+        try:
+            import ctypes
+            kernel32 = ctypes.windll.kernel32
+            h_in = kernel32.GetStdHandle(-10)  # STD_INPUT_HANDLE = -10
+            mode = ctypes.c_ulong()
+            if kernel32.GetConsoleMode(h_in, ctypes.byref(mode)):
+                # Clear 0x0040 (QuickEdit) and 0x0020 (InsertMode), set 0x0080 (ExtendedFlags)
+                new_mode = (mode.value & ~0x0040 & ~0x0020) | 0x0080
+                kernel32.SetConsoleMode(h_in, new_mode)
+        except Exception:
+            pass
+
+disable_windows_quickedit()
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    disable_windows_quickedit()
     load_questions()
     yield
 
