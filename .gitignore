@@ -16,7 +16,6 @@ env/
 
 # App-generated files
 backend/easter_egg.log
-backend/questions.json
 *.log
 backups/
 

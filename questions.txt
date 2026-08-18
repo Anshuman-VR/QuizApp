@@ -242,14 +242,10 @@ D) HMAC-SHA256
 Question 38. A database stores hashed passwords using a hash function with an n-bit output. What is the
 absolute minimum number of distinct passwords an attacker must generate to guarantee at least one
 collision?
-A) 2
-n/2
-B) 2
-2n
-C) 2
-n
-D) 2
-n + 1
+A) 2^(n/2)
+B) 2^(2n)
+C) 2^n
+D) 2^n + 1
 Question 39. A software developer provides a checksum (such as a SHA-256 string) next to a download
 link. What is the user verifying by comparing their calculated hash to the provided one?
 A) Data integrity
@@ -321,7 +317,7 @@ B) Hosts file
 C) Prefetch files
 D) Pagefile.sys
 Question 50. In a simple substitution cipher, every letter in the alphabet is mapped to a unique random
-ciphertext letter. Despite having a massive key space of 26! ≈ 4 × 1026 possible keys, why is this cipher
+ciphertext letter. Despite having a massive key space of 26! ≈ 4 × 10^26 possible keys, why is this cipher
 easily broken by hand?
 A) The static 1-to-1 mapping preserves the underlying n-gram statistical distribution of the natural
 language.
